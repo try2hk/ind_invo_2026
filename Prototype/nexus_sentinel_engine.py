@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-=====================================================================
-    NEXUS SENTINEL - AUTONOMOUS INCIDENT RESPONSE CORE (v8.1)
-=====================================================================
-Developer: MD Taufique 
-Target: India Innovates 2026 Pitch
-Description: Packet analysis aur active mitigation ke liye hybrid engine.
-             RHEL par production ke liye chalta hai, MacOS/Win par simulation.
-"""
+
+# =====================================================================
+#    NEXUS SENTINEL - AUTONOMOUS INCIDENT RESPONSE CORE (v8.1)
+# =====================================================================
+# Developed by : Team Nexus Security | Lead Innovator  : MD TAUFIQUE
+# AI & Logic Core : Nexus AI Division | Network Sec : R&D Team
+# Target OS: India Invote 2026 Pitch 
+# Core Features: Automated Incident Response (AIR), Progressive Penalty, Auto-Heal
 
 import os
 import platform
@@ -19,7 +18,12 @@ import random
 import socket
 from datetime import datetime
 from flask import Flask, jsonify, request
-from flask_cors import CORS # UI aur backend ko alag alag chalne dene ke liye
+from flask_cors import CORS 
+
+# --- SAFE FLASK LOG SILENCING ---
+# Team ne decide kiya ki terminal ko clean rakhne ke liye sirf safe logging controls use karenge
+cli = logging.getLogger('werkzeug')
+cli.setLevel(logging.ERROR)
 
 # Terminal colors - Sci-Fi Cyber Vibe ke liye
 class C:
@@ -29,15 +33,12 @@ class C:
     RED = '\033[91m'
     RESET = '\033[0m'
 
-# Static folder set kiya gaya hai taaki 404 error na aaye aur dashboard serve ho sake
+# Static folder set kiya gaya hai taaki dashboard seamlessly serve ho sake
 app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app) 
 
-# Flask ke default boring logs ko hide karna taaki terminal hacker jaisa dikhe
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
-
-# --- LOGGING SETUP (Real world forensics feel) ---
+# --- LOGGING SETUP ---
+# Forensics team ke liye audit logs save karna
 logging.basicConfig(
     filename='nexus_audit.log',
     level=logging.INFO,
@@ -47,8 +48,11 @@ logging.basicConfig(
 # --- SYSTEM METADATA ---
 OS_TYPE = platform.system()
 VERSION = "v8.1-PROD"
+# Naya Port taaki purana fasa hua port error na de!
+PORT = 8081
 
 # --- IN-MEMORY DATABASE ---
+# Team note: Future me isko Redis/PostgreSQL par migrate karenge scalability ke liye
 db = {
     "system_meta": {
         "version": VERSION,
@@ -56,7 +60,8 @@ db = {
         "uptime_start": time.time(),
     },
     "stats": {
-        "total_packets_inspected": 240590, 
+        "total_packets_inspected": 0, # FIXED: 240590 ko 0 kar diya taaki UI me error na aaye
+        "total_threats": 0, 
         "threats_neutralized": 0,
         "active_tier1_blocks": 0,
         "permanent_bans": 0
@@ -71,16 +76,11 @@ def get_time():
 
 def add_log(msg, level="INFO"):
     """Dono jagah log save karega: Terminal pe UI ke liye, aur file me audit ke liye."""
-    db["audit_trail"].insert(0, {
-        "timestamp": get_time(),
-        "message": msg,
-        "level": level
-    })
-    
+    db["audit_trail"].insert(0, {"timestamp": get_time(), "message": msg, "level": level})
     if len(db["audit_trail"]) > 20: 
         db["audit_trail"].pop()
         
-    # Terminal Output ka Vibe Check
+    # Terminal Output ka Team Vibe Check
     if level == "CRITICAL":
         print(f"{C.RED}[!] {get_time()} - {msg}{C.RESET}")
     elif level == "WARNING":
@@ -91,7 +91,7 @@ def add_log(msg, level="INFO"):
         print(f"{C.CYAN}[~] {get_time()} - {msg}{C.RESET}")
 
 def get_local_ip():
-    """Aapke Mac/Linux ka real Network IP nikalne ke liye"""
+    """Network team ka logic: Mac/Linux ka real Network IP dynamically nikalne ke liye"""
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))
@@ -101,11 +101,11 @@ def get_local_ip():
     except:
         return "127.0.0.1"
 
-# --- KERNEL FIREWALL ADAPTER ---
+# --- FIREWALL ADAPTER (KERNEL HOOKS) ---
 def engage_firewall(ip, severity="TIER1"):
     """
-    Asli magic yahan hai! 
-    RHEL pe real block chalega, Mac pe sirf simulation dikhega.
+    Core security logic! 
+    RHEL pe real block chalega, Mac pe sirf simulation dikhega taaki testing safe rahe.
     """
     if OS_TYPE == "Linux":
         if severity == "TIER2":
@@ -113,38 +113,38 @@ def engage_firewall(ip, severity="TIER1"):
         else:
             cmd = f"sudo firewall-cmd --add-rich-rule='rule family=\"ipv4\" source address=\"{ip}\" timeout=60s reject' > /dev/null 2>&1"
         
-        # os.system(cmd) # NOTE: Real RHEL demo me isko uncomment karein
-        # os.system("sudo firewall-cmd --reload > /dev/null 2>&1")
+        # Asli demo me execute karne ke liye `os.system(cmd)` uncomment karenge
         add_log(f"KERNEL_SYNC: iptables updated for {ip}.", "INFO")
     else:
         add_log(f"SIM_MODE: Firewall engaged against {ip}.", "INFO")
 
-# --- MATRIX BOOT SEQUENCE (Hacker Effect) ---
+# --- MATRIX BOOT SEQUENCE ---
 def run_matrix_boot():
     """Terminal me ek zabardast Hollywood hacker style boot animation dikhane ke liye"""
     os.system('clear' if os.name == 'posix' else 'cls')
     print(C.GREEN, end="")
-    modules = ["KERNEL_HOOK_SYS", "AI_ANOMALY_CORE", "DPI_PACKET_SCANNER", "AUTO_HEAL_DAEMON", "FIREWALL_SYNC_API", "ZERO_TRUST_AUTH"]
+    modules = ["TEAM_NEXUS_HOOK", "AI_ANOMALY_CORE", "DPI_PACKET_SCANNER", "AUTO_HEAL_DAEMON", "ZERO_TRUST_AUTH"]
     
-    for _ in range(25):
+    for _ in range(20):
         hex_str = "".join(random.choice("0123456789ABCDEF") for _ in range(12))
         mod = random.choice(modules)
         print(f"[0x{hex_str}] LOADING {mod} ... [OK]")
-        time.sleep(0.02)
+        time.sleep(0.01)
         
-    print("\n[+] INITIALIZING NEXUS PROTOCOL..." + C.RESET)
-    time.sleep(0.5)
+    print("\n[+] INITIALIZING TEAM NEXUS PROTOCOL..." + C.RESET)
+    time.sleep(0.3)
     os.system('clear' if os.name == 'posix' else 'cls')
 
-# --- API ENDPOINTS (Dashboard yahan connect hota hai) ---
+# --- API ENDPOINTS (Dashboard Integration) ---
 @app.route('/')
 def serve_dashboard():
-    """404 Error ko fix karta hai - Dashboard file direct browser me bheje ga"""
-    return app.send_static_file('dashboard.html')
+    """Dashboard file direct browser me bheje ga (No 404 errors)"""
+    return app.send_static_file('nexus_sentinel_dash.html')
 
 @app.route('/api/telemetry', methods=['GET'])
 def telemetry():
     now = time.time()
+    # Team Logic: Auto-heal expired blocks efficiently
     for ip, data in list(db["attacker_registry"].items()):
         if data.get('blocked_until') and now > data['blocked_until'] and data['status'] == 'BLOCKED':
             db["attacker_registry"][ip]['status'] = 'CLEAN'
@@ -165,6 +165,10 @@ def analyze():
 
     db["attacker_registry"][attacker_ip]['strikes'] += 1
     strikes = db["attacker_registry"][attacker_ip]['strikes']
+    
+    # Team Metrics Update
+    db["stats"]["total_threats"] += 1
+    db["stats"]["total_packets_inspected"] += 1 # FIXED: Purane dashboard ko bhi support karega
     db["stats"]["threats_neutralized"] += 1
 
     if strikes == 1:
@@ -177,10 +181,7 @@ def analyze():
         db["attacker_registry"][attacker_ip]['status'] = 'BANNED'
         db["attacker_registry"][attacker_ip]['blocked_until'] = 9999999999
         db["stats"]["permanent_bans"] += 1
-        
-        if db["stats"]["active_tier1_blocks"] > 0:
-            db["stats"]["active_tier1_blocks"] -= 1 
-            
+        if db["stats"]["active_tier1_blocks"] > 0: db["stats"]["active_tier1_blocks"] -= 1 
         engage_firewall(attacker_ip, "TIER2")
         add_log(f"LETHAL THREAT: Repeat attack from {attacker_ip}. PERMANENT BAN.", "CRITICAL")
 
@@ -189,7 +190,6 @@ def analyze():
 # --- BOOT SEQUENCE ---
 if __name__ == '__main__':
     run_matrix_boot()
-    
     NETWORK_IP = get_local_ip()
     
     print(f"{C.CYAN}")
@@ -199,16 +199,18 @@ if __name__ == '__main__':
     print(r" | . ` |  __| /   \ |  | |`--. \  `--. \  __|| . ` | | |   | | | . ` |  __|| |   ")
     print(r" | |\  | |___/ /^\ \ \_/ /\__/ / /\__/ / |___| |\  | | |  _| |_| |\  | |___| |____")
     print(r" \_| \_/\____\/   \/\___/\____/  \____/\____/\_| \_/ \_/  \___/\_| \_\____/\_____/")
-    print(f"                                                                            {C.RESET}")
-    print(f"{C.YELLOW} >> AUTONOMOUS INCIDENT RESPONSE CORE v8.1{C.RESET}")
-    print(f"{C.YELLOW} >> PLATFORM: {OS_TYPE} | PORT: 5050{C.RESET}")
+    print(f"{C.RESET}")
+    
+    print(f"{C.CYAN} >> AUTONOMOUS INCIDENT RESPONSE CORE v8.1{C.RESET}")
+    print(f"{C.CYAN} >> DEVELOPED BY: Team Nexus Security{C.RESET}")
+    print(f"{C.CYAN} >> PLATFORM: {OS_TYPE} | PORT: {PORT}{C.RESET}")
     print(f"{C.GREEN} >> Security Posture: HIGH | AI Core: ACTIVE{C.RESET}")
-    print(f"{C.CYAN} >> Dashboard (Local):   http://127.0.0.1:5050 {C.RESET}")
-    print(f"{C.CYAN} >> Dashboard (Network): http://{NETWORK_IP}:5050 {C.RESET}")
+    print(f"{C.CYAN} >> Dashboard (Local):   http://127.0.0.1:{PORT} {C.RESET}")
+    print(f"{C.CYAN} >> Dashboard (Network): http://{NETWORK_IP}:{PORT} {C.RESET}")
     print("-" * 75)
     
-    add_log("System Boot: Core services engaged.", "SUCCESS")
-    add_log("Monitoring active on Port 5050. Awaiting packets...", "INFO")
+    add_log("System Boot: Core services engaged by Team Nexus.", "SUCCESS")
+    add_log(f"Monitoring active on Port {PORT}. Awaiting packets...", "INFO")
     
-    # 0.0.0.0 par run karein taaki network se access ho sake
-    app.run(host='0.0.0.0', port=5050, debug=False)
+    # Naye port ke sath application start hogi
+    app.run(host='0.0.0.0', port=PORT)
