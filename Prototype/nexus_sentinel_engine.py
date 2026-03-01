@@ -49,7 +49,7 @@ logging.basicConfig(
 OS_TYPE = platform.system()
 VERSION = "v8.1-PROD"
 # Naya Port taaki purana fasa hua port error na de!
-PORT = 8081
+PORT = 9090
 
 # --- IN-MEMORY DATABASE ---
 # Team note: Future me isko Redis/PostgreSQL par migrate karenge scalability ke liye

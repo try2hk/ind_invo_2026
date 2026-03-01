@@ -37,7 +37,7 @@ Open dashboard.html in Safari/Chrome.
 
 Trigger an Attack (from Kali Linux or Demo API):
 
-curl -X POST http://localhost:5050/api/analyze \
+curl -X POST http://localhost:9090/api/analyze \
 -H "Content-Type: application/json" \
 -d '{"ip": "10.41.99.1", "vector": "SSH_BRUTE_FORCE"}'
 
