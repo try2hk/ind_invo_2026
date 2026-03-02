@@ -1,6 +1,6 @@
-🛡️ NEXUS SENTINEL
+🛡️ NEXUS SENTINEL - AUTONOMOUS DEFENSE GRID
 
-Autonomous Incident Response Core Project for India Innovates 2026 | Lead Innovator: MD Taufique
+India Innovates 2026 Hackathon Submission Developed by Team Nexus Security | Lead Innoveter : Md Taufique
 
 📌 Executive Summary
 
@@ -22,24 +22,43 @@ Air-Gapped Ready: Runs entirely on local infrastructure with zero external cloud
 
 nexus_sentinel_engine.py: The Python-based Hybrid Defense Core. Connects directly to the OS kernel.
 
-dashboard.html: The Glassmorphism-based SOC (Security Operations Center) Command Interface.
+nexus_sentinel_dash.html: The Glassmorphism-based SOC (Security Operations Center) Command Interface.
 
-🛠️ How to Run (Simulation / Demo Mode)
+💻 Environment Setup & Testing Guide
 
-Start the Core Engine:
+This Proof of Concept (PoC) was successfully tested on a Red Hat Enterprise Linux (RHEL) environment.
 
-pip install flask flask-cors
+1.Starting the Core Engine (On Target RHEL Server)
+Navigate to the Proof_of_Concept directory and run the engine:
+
+cd Proof_of_Concept 
+pip3 install flask flask-cors 
 python3 nexus_sentinel_engine.py
 
+The engine will start monitoring on Port 9090.
 
-Launch the Command Center:
-Open dashboard.html in Safari/Chrome.
+2.Accessing the SOC Command Center
+Open any web browser and navigate to the RHEL server's IP address:
 
-Trigger an Attack (from Kali Linux or Demo API):
+http://<SERVER_IP_ADDRESS>:9090 
+Example: http://http://192.168.64.3:9090
 
-curl -X POST http://localhost:9090/api/analyze \
--H "Content-Type: application/json" \
+3.Simulating an Attack (From a Kali Linux Attacker Node)
+To verify the autonomous mitigation, use a separate machine (like Kali Linux) to fire a simulated Zero-Day or Brute Force payload at the RHEL server.
+
+Run the following curl command from the attacker machine (Replace 192.168.64.3 with your actual RHEL IP):
+
+curl -X POST http://http://192.168.64.3:9090/api/analyze
+-H "Content-Type: application/json"
 -d '{"ip": "10.41.99.1", "vector": "SSH_BRUTE_FORCE"}'
 
+4.Expected Output
+First Strike: The engine detects the anomaly and triggers a Tier 1 Soft Block. The firewalld applies a 60-second timeout to the attacker IP.
+
+Second Strike: If the command is run again, the engine registers a repeat offense and issues a Tier 2 Permanent Ban, modifying the firewall to permanently reject packets from the rogue node.
+
+🔬 Phase 1 Roadmap: eBPF Kernel Hooks
+
+We are actively researching the migration from user-space Python filtering to kernel-space eBPF (Extended Berkeley Packet Filter). This will allow the system to drop malicious packets at wire-speed (10Gbps+) with zero latency. See the Phase1_eBPF_Research/ folder for our initial C-based kernel hooks.
 
 “Securing Code. Securing Governance. Securing the Nation.”
