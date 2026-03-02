@@ -3,7 +3,7 @@ NEXUS SENTINEL - PHASE 2 RESEARCH (eBPF KERNEL HOOK)
 Target: 10Gbps+ Wire-Speed Packet Dropping (Months 1-3 Roadmap)
 =========================================================================
 Note: This is an active R&D snippet for the next phase of the project.
-Moving from user-space Python (Phase 1) to kernel-space eBPF (Phase 2).
+Moving from user-space Python (Proof of Concept) to kernel-space eBPF (Phase 1).
 */
 
 #include <linux/bpf.h>
