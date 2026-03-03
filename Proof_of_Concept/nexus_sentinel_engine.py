@@ -7,7 +7,7 @@
 # =====================================================================
 # Developed by : Team Nexus Security | Lead Innovator  : MD TAUFIQUE
 # AI & Logic Core : Nexus AI Division | Network Sec : R&D Team
-# Target OS: India Invote 2026 Pitch 
+# Target OS: India Invote 2026 
 # Core Features: Automated Incident Response (AIR), Progressive Penalty, Auto-Heal
 
 import os
