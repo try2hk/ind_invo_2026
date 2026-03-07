@@ -1,100 +1,131 @@
-🛡️ NEXUS SENTINEL - AUTONOMOUS INCIDENT RESPONSE 
+<h1 align="center">🛡️ NEXUS SENTINEL</h1>
 
+<p align="center">
+<strong>Autonomous Incident Response Core for Sovereign Infrastructure</strong>
 
-Nexus Sentinel is an AI-driven, sovereign defense grid designed to secure critical national infrastructure (such as MCD networks). The system transforms the manual incident response timeline from 180+ minutes down to 0.02 milliseconds.
+<i>Securing Code. Securing Governance. Securing the Nation.</i>
 
-🚀 Key Features
+</p>
 
-Zero-Day Anomaly Detection: Behavioral threat scoring stops unknown vectors.
+<p align="center">
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Phase_1-Completed-success%3Fstyle%3Dfor-the-badge" alt="Phase 1 Complete">
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Deployment-Zero--Cloud_Air--Gapped-blue%3Fstyle%3Dfor-the-badge" alt="Air Gapped">
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Latency-0.02ms-red%3Fstyle%3Dfor-the-badge" alt="Latency">
+</p>
 
-Autonomous Kill-Switch: Instantly isolates malicious IPs at the OS firewall level (RHEL firewalld/iptables).
+📖 Project Overview
 
-Self-Healing Network: Tier 1 soft-blocks automatically lift after the threat subsides, requiring zero manual intervention.
+Nexus Sentinel is an AI-driven, sovereign defense grid explicitly designed to secure critical national infrastructure (like MCD networks, Power Grids). By implementing a heuristic-driven kill-switch, the system drastically reduces the threat mitigation window from a vulnerable 180+ minutes down to an unprecedented 0.02ms.
 
-Lethal Tier 2 Bans: Repeat offenders are permanently banned from the sovereign network.
+✨ The Innovation USP
 
-Air-Gapped Ready: Runs entirely on local infrastructure with zero external cloud dependencies.
+🦠 Zero-Day Anomaly Ready: Active behavioral threat scoring neutralizes unknown vectors before they even execute.
 
-📂 Project Architecture | Repo Hierarchie
+⚡ Autonomous Kill-Switch: Instantly isolates malicious IPs at the OS/Kernel level without any human intervention.
 
+🔄 Auto-Heal Network: Tier 1 soft-blocks intelligently and automatically lift after the threat subsides.
 
-Folder / File                                 Description
+🔒 Air-Gapped & Sovereign: 100% local execution (Zero-Cloud) ensuring top-secret government data never leaks.
 
-📁 Proof_of_Concept/                          Python-based Core Engine aur Glassmorphism Dashboard (PoC).
+🛠️ Tech Stack & Architecture
 
-📁 Phase1_eBPF_Research/.                     Future Roadmap: C-based eBPF kernel hooks for 10Gbps+ traffic.
+Control Plane: Python 3, Flask (RESTful API)
 
-📁 docs/.                                     Technical Whitepapers aur Architecture Reports.
+Data Plane (Kernel): C/C++, eBPF (Extended Berkeley Packet Filter), XDP
 
-📄 LICENSE.                                   MIT Professional License.
+Command Center UI: HTML5, Tailwind CSS, Vanilla JS (Glassmorphism Design)
 
-📄 README.md                                  Project Documentation and Guide.
+📂 Repository Hierarchy
 
+Directory / File
 
-🚀 Getting Started (Lab Setup)
+Purpose
 
-This prototype has been successfully tested on Red Hat Enterprise Linux (RHEL). Follow the steps below for setup:
+Proof_of_Concept/
 
-1. Installation
+Python-based Core Engine and real-time Glassmorphism Dashboard.
 
-Navigate to the folder in your RHEL terminal and install dependencies:
+Phase1_eBPF_Research/
+
+[NEW] C++/Rust eBPF kernel hooks for 10Gbps+ wire-speed drops.
+
+docs/
+
+Technical Whitepapers, Pitch Deck, and Architecture Reports.
+
+README.md
+
+Lab Setup and Simulation Guide.
+
+🔬 Phase 1 Complete: eBPF Kernel Integration
+
+We have successfully bridged our user-space AI Core with eBPF in kernel-space. The system now dynamically updates BPF maps to drop malicious packets at wire-speed (10Gbps+) with near-zero latency, bypassing standard OS network stacks entirely.
+
+⚙️ Lab Setup & Execution Guide
+
+We have engineered the core to be OS-Aware. While lethal kernel-bans require Linux (RHEL/Ubuntu), the engine features a built-in SIM_MODE that safely simulates actions on Windows/macOS without crashing your local machine.
+
+1. Prerequisites & Installation
+
+Navigate to the core folder and install the lightweight dependencies:
 
 cd Proof_of_Concept
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 
 
-2. Launching the Engine
+(Note for Linux Enterprise users: Ensure bcc tools are installed to activate the Phase 1 eBPF wire-speed hook).
 
-Run the engine to initiate Autonomous Monitoring:
+2. Ignite the Defense Grid
 
-python3 nexus_sentinel_engine.py
+Run the engine. It will automatically detect your OS and adjust its defense posture:
+
+python nexus_sentinel_engine.py
 
 
-Note: The engine initiates monitoring on Port 9090 by default.
+3. Access the Command Center
 
-3. Accessing SOC Dashboard
+Open any modern browser and navigate to the live dashboard:
 
-Open a browser (Safari/Chrome) and navigate to:
-👉 http://localhost:9090 (Local access)
-👉 http://<YOUR_RHEL_IP>:9090 (Network access)
+Local Access: http://localhost:9090
 
-⚔️ Simulation Guide (Red Team vs Blue Team)
+Network Access: http://<YOUR_MACHINE_IP>:9090
 
-Use a Kali Linux machine to simulate an attack.
+⚔️ Live Simulation (Red Team vs Blue Team)
 
-🛡️ Tier 1 Action (Soft Block)
+You can easily verify the Autonomous Incident Response (AIR) logic by simulating an attack from another terminal or a Kali Linux machine.
 
-Trigger AI detection by sending a payload from the Attacker IP:
+🟡 Strike 1: Tier 1 Action (Soft Block)
 
-curl -X POST http://192.168.64.3:9090/api/analyze \ 
+Trigger AI detection by sending a malicious payload:
+
+curl -X POST http://localhost:9090/api/analyze \
 -H "Content-Type: application/json" \
 -d '{"ip": "10.41.99.1", "vector": "SSH_BRUTE_FORCE"}'
 
 
-Sentinel action: The Attacker IP will be isolated (rejected) for 60 seconds.
+🛡️ Sentinel Action: The engine detects the anomaly and applies a 60-second soft block. The Dashboard will flash a Yellow Warning.
 
-🔥 Tier 2 Action (Permanent Ban)
+🔴 Strike 2: Tier 2 Action (Lethal Ban)
 
-A repeat attack will trigger a lethal ban:
-Sentinel action: The Attacker IP will be permanently blocked at the Kernel level.
+Run the exact same command again to simulate a repeat offense:
+
+curl -X POST http://localhost:9090/api/analyze \
+-H "Content-Type: application/json" \
+-d '{"ip": "10.41.99.1", "vector": "SSH_BRUTE_FORCE"}'
+
+
+💥 Sentinel Action: The engine registers the repeat attack and issues a Tier 2 Permanent Ban, modifying the kernel/firewall to permanently drop packets from the rogue node. The Dashboard will trigger a Red Danger Pulse.
+
+<p align="center">
+<b>Developed by Team Nexus Security</b>
 
 
 
-4.Expected Output
-First Strike: The engine detects the anomaly and triggers a Tier 1 Soft Block. The firewalld applies a 60-second timeout to the attacker IP.
 
-Second Strike: If the command is run again, the engine registers a repeat offense and issues a Tier 2 Permanent Ban, modifying the firewall to permanently reject packets from the rogue node.
+<i>Lead Innovator: MD Taufique | Domain: Cybersecurity & Sovereign Infrastructure</i>
 
-🔬 Phase 1 (eBPF Migration)
-We are actively researching the migration from user-space Python filtering to kernel-space eBPF (Extended Berkeley Packet Filter). This will allow the system to drop malicious packets at wire-speed (10Gbps+) with zero latency. See the Phase1_eBPF_Research/ folder for our initial C-based kernel hooks.
 
-🤝 Developed By
 
-Team Nexus Security
 
-Lead Innovator: MD Taufique
-
-Domain: Cybersecurity & Sovereign Infrastructure
-
-Securing Code. Securing Governance. Securing the Nation.
-
+Target: India Innovates 2026
+</p>
