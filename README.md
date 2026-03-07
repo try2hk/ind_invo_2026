@@ -3,7 +3,8 @@
 <p align="center">
 <strong>Autonomous Incident Response Core for Sovereign Infrastructure</strong>
 
-<i>Securing Code. Securing Governance. Securing the Nation.</i></p>
+<i>Securing Code. Securing Governance. Securing the Nation.</i>
+</p>
 
 <p align="center">
 <img src="https://www.google.com/search?q=https://img.shields.io/badge/Phase_1-Completed-success%3Fstyle%3Dfor-the-badge" alt="Phase 1 Complete">
