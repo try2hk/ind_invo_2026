@@ -3,13 +3,16 @@
 <p align="center">
 <strong>Autonomous Incident Response Core for Sovereign Infrastructure</strong>
 
+
+
+
 <i>Securing Code. Securing Governance. Securing the Nation.</i>
 </p>
 
 <p align="center">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Phase_1-Completed-success%3Fstyle%3Dfor-the-badge" alt="Phase 1 Complete">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Deployment-Zero--Cloud_Air--Gapped-blue%3Fstyle%3Dfor-the-badge" alt="Air Gapped">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Latency-0.02ms-red%3Fstyle%3Dfor-the-badge" alt="Latency">
+<img src="https://img.shields.io/badge/Phase_1-Completed-success?style=for-the-badge" alt="Phase 1 Complete">
+<img src="https://img.shields.io/badge/Deployment-Zero--Cloud_Air--Gapped-blue?style=for-the-badge" alt="Air Gapped">
+<img src="https://img.shields.io/badge/Latency-0.02ms-red?style=for-the-badge" alt="Latency">
 </p>
 
 📖 Project Overview
