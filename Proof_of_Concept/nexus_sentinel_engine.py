@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 
-# ==========================================================
-#    NEXUS SENTINEL - AUTONOMOUS INCIDENT RESPONSE CORE v8.1 
-# ==========================================================
+# =====================================================
+#    NEXUS SENTINEL - AUTONOMOUS INCIDENT RESPONSE CORE 
+# ======================================================
 # Developed by : Team Nexus Security | Lead Innovator  : MD TAUFIQUE
 # AI & Logic Core : Nexus AI Division | Network Sec : R&D Team
 # Target OS: Linux (RHEL 8+), MacOS (for simulation/testing)
